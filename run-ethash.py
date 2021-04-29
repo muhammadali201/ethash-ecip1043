@@ -1,6 +1,7 @@
 #!/usr/bin/python2.7
 
-from ethash_ecip1043 import *
+#from ethash_ecip1043 import *
+from ethash import *
 import sys
 
 #
@@ -19,7 +20,10 @@ if int(sys.argv[1]) > 1000:
 	dag_bytes = int(sys.argv[1]) * MIX_BYTES
 else:
 	block = int(sys.argv[1]) * EPOCH_LENGTH
+	print "block", "%064x" % block
+	print "block decimal", "%064d" % block
 	seed = deserialize_hash(get_seedhash(block))
+	print "get_seedhash", "%s" % get_seedhash(block)
 	print "seed", "%064x" % decode_int(serialize_hash(seed)[::-1])
 	cache = mkcache(get_cache_size(block), seed)
 	dag_bytes = get_full_size(block)

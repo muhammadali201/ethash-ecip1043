@@ -232,7 +232,10 @@ def mine(full_size, dataset, header, difficulty, nonce):
 
 
 def get_seedhash(block):
-	s = '\x00' * 32
+	s = '\x00' * 32 # this creates s as 32 NULL Bytes
+	t1 = block // EPOCH_LENGTH
+	print "block = %d t1 = %x %d" %(block, EPOCH_LENGTH,EPOCH_LENGTH)
 	for i in range(block // EPOCH_LENGTH):
+		print "i = %d s = %a" %(i, s)
 		s = serialize_hash(sha3_256(s))
 	return s
