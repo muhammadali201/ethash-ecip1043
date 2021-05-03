@@ -60,6 +60,7 @@ def zpad(s, length):
 
 
 def serialize_hash(h):
+	print "serialize_hash %s"%h
 	return ''.join([zpad(encode_int(x), 4) for x in h])
   
 
@@ -69,9 +70,12 @@ def deserialize_hash(h):
 
 
 def hash_words(h, sz, x):
+	print "hash_words %s" %x
 	if isinstance(x, list):
+		print "hash_words x is instace of list"
 		x = serialize_hash(x)
 	y = h(x)
+	print "hash_word y = %s" %y
 	return deserialize_hash(y)
 
 
@@ -236,6 +240,6 @@ def get_seedhash(block):
 	t1 = block // EPOCH_LENGTH
 	print "block = %d t1 = %x %d" %(block, EPOCH_LENGTH,EPOCH_LENGTH)
 	for i in range(block // EPOCH_LENGTH):
-		print "i = %d s = %a" %(i, s)
+		print "i = %d s = %s" %(i, s)
 		s = serialize_hash(sha3_256(s))
 	return s
